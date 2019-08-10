@@ -1,8 +1,10 @@
-package com.dbendyug.loftcoin;
+package com.dbendyug.loftcoin.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.dbendyug.loftcoin.R;
 
 public class MainActivity extends AppCompatActivity {
 
