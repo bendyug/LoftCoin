@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LoftCoin</string>
+    <string name="app_name" translatable="false">LoftCoin</string>
+    <string name="button_start">Start</string>
+    <string name="title_1">Buying and Selling</string>
+    <string name="title_2">Cryptocurrency rate</string>
+    <string name="title_3">Currency Converter</string>
+    <string name="subtitle_1">Buy when it\'s cheap, sell when it\'s expensive.</string>
+    <string name="subtitle_2">Follow the exchange rate and respond in time to changes in price dynamics.</string>
+    <string name="subtitle_3">Find out how much ethereum is in one bitcoin.</string>
 </resources>
