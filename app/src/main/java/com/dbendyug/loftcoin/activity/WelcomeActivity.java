@@ -1,6 +1,10 @@
 package com.dbendyug.loftcoin.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +19,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
+    private Button buttonStart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,5 +31,15 @@ public class WelcomeActivity extends AppCompatActivity {
 
         circleIndicator = findViewById(R.id.dots_indicator);
         circleIndicator.setViewPager(viewPager);
+
+        buttonStart = findViewById(R.id.button_start);
+        buttonStart.setOnClickListener(view -> {
+            final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPreferences.edit().putBoolean(SplashActivity.SHOW_WELCOME_SCREEN_KEY, false).apply();
+            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
     }
 }
