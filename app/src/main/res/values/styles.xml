@@ -5,6 +5,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.H2</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.H4</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.H1</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -12,6 +15,25 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="TextAppearance.H2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
+    <style name="TextAppearance.H4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/blue_grey</item>
+    </style>
+
+    <style name="TextAppearance.H1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">48sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
 </resources>
