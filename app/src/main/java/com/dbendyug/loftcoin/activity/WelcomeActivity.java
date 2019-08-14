@@ -8,17 +8,18 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbendyug.loftcoin.R;
 import com.dbendyug.loftcoin.adapter.WelcomePagerAdapter;
 
-import me.relex.circleindicator.CircleIndicator;
+import me.relex.circleindicator.CircleIndicator2;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
-    private CircleIndicator circleIndicator;
+    private RecyclerView recyclerView;
     private Button buttonStart;
 
     @Override
@@ -26,11 +27,15 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        viewPager = findViewById(R.id.viewpager);
-        viewPager.setAdapter(new WelcomePagerAdapter(getLayoutInflater()));
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setAdapter(new WelcomePagerAdapter(getLayoutInflater()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-        circleIndicator = findViewById(R.id.dots_indicator);
-        circleIndicator.setViewPager(viewPager);
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(recyclerView);
+
+        CircleIndicator2 indicator = findViewById(R.id.dots_indicator);
+        indicator.attachToRecyclerView(recyclerView, pagerSnapHelper);
 
         buttonStart = findViewById(R.id.button_start);
         buttonStart.setOnClickListener(view -> {
