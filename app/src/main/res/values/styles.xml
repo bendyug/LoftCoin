@@ -30,7 +30,7 @@
     </style>
 
     <style name="TextAppearance.H1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
