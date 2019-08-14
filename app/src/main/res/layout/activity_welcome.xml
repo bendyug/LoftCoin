@@ -31,11 +31,14 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="28dp"/>
 
-    <Button
+    <TextView
         android:id="@+id/button_start"
+        style="?attr/gradientButtonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/button_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

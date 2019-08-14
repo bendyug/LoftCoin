@@ -2,7 +2,7 @@ package com.dbendyug.loftcoin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +19,7 @@ import me.relex.circleindicator.CircleIndicator2;
 public class WelcomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private Button buttonStart;
+    private TextView buttonStart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

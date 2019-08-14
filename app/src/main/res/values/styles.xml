@@ -5,14 +5,22 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.H1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.H2</item>
         <item name="textAppearanceHeadline4">@style/TextAppearance.H4</item>
-        <item name="textAppearanceHeadline1">@style/TextAppearance.H1</item>
+        <item name="gradientButtonStart">@style/Widget.AppTheme.Button</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextAppearance.H1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">36sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.H2" parent="TextAppearance.MaterialComponents.Headline2">
@@ -29,11 +37,14 @@
         <item name="android:textColor">@color/blue_grey</item>
     </style>
 
-    <style name="TextAppearance.H1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
+    <style name="Widget.AppTheme.Button" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/gradient_ripple_button_start</item>
+        <item name="android:paddingStart">64dp</item>
+        <item name="android:paddingEnd">64dp</item>
     </style>
+
+    <declare-styleable name="AppTheme">
+        <attr name="gradientButtonStart" format="reference" />
+    </declare-styleable>
 
 </resources>

@@ -20,6 +20,7 @@
     <color name="dark">#191a29</color>
     <color name="dark_1">#02323348</color>
     <color name="golden_yellow">#f6ca1d</color>
+    <color name="white_transparent_20">#33FFFFFF</color>
 
 
 </resources>
