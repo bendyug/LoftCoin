@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-class SettingsCustomization implements Settings {
+class SettingsImplementation implements Settings {
 
     private SharedPreferences sharedPreferences;
     private static final String SHOW_WELCOME_SCREEN_KEY = "show_welcome_screen";
 
-    SettingsCustomization(Context context) {
+    SettingsImplementation(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 

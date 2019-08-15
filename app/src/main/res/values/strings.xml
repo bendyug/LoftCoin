@@ -8,4 +8,12 @@
     <string name="subtitle_1">Buy when it\'s cheap, sell when it\'s expensive.</string>
     <string name="subtitle_2">Follow the exchange rate and respond in time to changes in price dynamics.</string>
     <string name="subtitle_3">Find out how much ethereum is in one bitcoin.</string>
+    <string name="wallets">Wallets</string>
+    <string name="exchange_rates">Exchange rates</string>
+    <string name="converter">Converter</string>
+    <string name="add_wallet">Add wallet</string>
+    <string name="change_currency">Change currency</string>
+    <string name="sort">Sort</string>
+    <string name="exchange_rates_tab_name">General analysis</string>
+
 </resources>

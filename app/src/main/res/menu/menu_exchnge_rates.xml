@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/change_currency"
+        android:icon="@drawable/ic_exchange_rates_change_currency"
+        android:title="@string/change_currency"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/another_menu"
+        android:icon="@drawable/ic_exchange_rates_sort"
+        android:title="@string/sort"
+        app:showAsAction="ifRoom" />
+
+</menu>

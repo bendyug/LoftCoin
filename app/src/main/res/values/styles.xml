@@ -9,6 +9,10 @@
         <item name="textAppearanceHeadline2">@style/TextAppearance.H2</item>
         <item name="textAppearanceHeadline4">@style/TextAppearance.H4</item>
         <item name="gradientButtonStart">@style/Widget.AppTheme.Button</item>
+        <item name="walletCardBackground">@color/dark_five</item>
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
+        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+        <item name="bottomNavigationStyle">@style/Widget.AppTheme.BottomNav</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,21 +22,21 @@
 
     <style name="TextAppearance.H1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.H2" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.H4" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/blue_grey</item>
     </style>
@@ -43,8 +47,20 @@
         <item name="android:paddingEnd">64dp</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="elevation">0dp</item>
+    </style>
+
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="Widget.AppTheme.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:backgroundTint">@color/dark_seven</item>
+    </style>
+
     <declare-styleable name="AppTheme">
         <attr name="gradientButtonStart" format="reference" />
+        <attr name="walletCardBackground" format="reference" />
     </declare-styleable>
 
 </resources>

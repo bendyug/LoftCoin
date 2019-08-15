@@ -4,10 +4,11 @@ import android.content.Context;
 
 public interface Settings {
 
-    static Settings of(Context context){
-        return new SettingsCustomization(context);
+    static Settings of(Context context) {
+        return new SettingsImplementation(context);
     }
 
     boolean showWelcomeScreen();
+
     void doNotShowWelcomeScreenAgain();
 }
