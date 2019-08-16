@@ -7,4 +7,12 @@
     <string name="subtitle_1">Покупай когда дешево, продавай когда дорого.</string>
     <string name="subtitle_2">Следи за курсом валют и вовремя реагируй на изменения динамики цены.</string>
     <string name="subtitle_3">Узнай сколько эфира в одном биткоине.</string>
+    <string name="wallets">Кошельки</string>
+    <string name="exchange_rates">Курс</string>
+    <string name="converter">Конвертер</string>
+    <string name="add_wallet">Добавить кошелёк</string>
+    <string name="change_currency">Сменить валюту</string>
+    <string name="sort">Сортировать</string>
+    <string name="exchange_rates_tab_name">Общий анализ</string>
+
 </resources>

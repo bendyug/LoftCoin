@@ -49,6 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/outer_circle"
         android:layout_marginTop="14dp"
+        android:textSize="46sp"
         android:textAppearance="?attr/textAppearanceHeadline1"
         android:text="@string/app_name"/>
 

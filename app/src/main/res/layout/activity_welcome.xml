@@ -3,19 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/dots_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/welcome_page"/>
 
-    <me.relex.circleindicator.CircleIndicator
+    <me.relex.circleindicator.CircleIndicator2
         android:id="@+id/dots_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,11 +31,14 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="28dp"/>
 
-    <Button
+    <TextView
         android:id="@+id/button_start"
+        style="?attr/gradientButtonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/button_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
