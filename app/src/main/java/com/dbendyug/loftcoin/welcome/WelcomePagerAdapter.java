@@ -1,4 +1,4 @@
-package com.dbendyug.loftcoin.adapter;
+package com.dbendyug.loftcoin.welcome;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +67,7 @@ public class WelcomePagerAdapter extends RecyclerView.Adapter<WelcomePagerAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            welcomeImage =itemView.findViewById(R.id.welcome_image);
+            welcomeImage = itemView.findViewById(R.id.welcome_image);
             welcomeTitle = itemView.findViewById(R.id.title);
             welcomeSubtitle = itemView.findViewById(R.id.subtitle);
         }

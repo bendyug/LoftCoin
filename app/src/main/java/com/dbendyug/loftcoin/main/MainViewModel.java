@@ -1,10 +1,12 @@
-package com.dbendyug.loftcoin.viewmodel;
+package com.dbendyug.loftcoin.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbendyug.loftcoin.R;
+
+import java.util.Objects;
 
 public class MainViewModel extends ViewModel {
 
@@ -20,9 +22,15 @@ public class MainViewModel extends ViewModel {
         this.title.postValue(title);
     }
 
-    public void submitSelectedId(Integer selectedId) {
-        this.selectedId.postValue(selectedId);
+    public void submitSelectedId(int selectedId) {
+
+        if (!Objects.equals(selectedId, this.selectedId.getValue())){
+
+            this.selectedId.postValue(selectedId);
+        }
+
     }
+
 
 
     public LiveData<String> title() {

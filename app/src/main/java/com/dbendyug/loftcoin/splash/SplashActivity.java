@@ -1,4 +1,4 @@
-package com.dbendyug.loftcoin.activity;
+package com.dbendyug.loftcoin.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dbendyug.loftcoin.R;
+import com.dbendyug.loftcoin.welcome.WelcomeActivity;
+import com.dbendyug.loftcoin.main.MainActivity;
 import com.dbendyug.loftcoin.util.Settings;
 
 public class SplashActivity extends AppCompatActivity {

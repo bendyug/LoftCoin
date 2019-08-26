@@ -1,9 +1,7 @@
-package com.dbendyug.loftcoin.fragment;
+package com.dbendyug.loftcoin.converter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,9 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dbendyug.loftcoin.R;
-import com.dbendyug.loftcoin.viewmodel.MainViewModel;
+import com.dbendyug.loftcoin.main.MainViewModel;
 
-public class WalletsFragment extends Fragment {
+public class ConverterFragment extends Fragment {
 
     private MainViewModel mainViewModel;
 
@@ -28,24 +26,12 @@ public class WalletsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_wallets, container, false);
+        return inflater.inflate(R.layout.fragment_converter, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mainViewModel.submitTitle(getString(R.string.wallets));
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_add_wallet, menu);
+        mainViewModel.submitTitle(getString(R.string.converter));
     }
 }

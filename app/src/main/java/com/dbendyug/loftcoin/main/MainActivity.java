@@ -1,4 +1,4 @@
-package com.dbendyug.loftcoin.activity;
+package com.dbendyug.loftcoin.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.SparseArrayCompat;
@@ -8,11 +8,10 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import com.dbendyug.loftcoin.R;
-import com.dbendyug.loftcoin.fragment.ConverterFragment;
-import com.dbendyug.loftcoin.fragment.ExchangeRatesFragment;
-import com.dbendyug.loftcoin.fragment.WalletsFragment;
+import com.dbendyug.loftcoin.converter.ConverterFragment;
+import com.dbendyug.loftcoin.exchangerates.ExchangeRatesFragment;
+import com.dbendyug.loftcoin.wallets.WalletsFragment;
 import com.dbendyug.loftcoin.util.Supplier;
-import com.dbendyug.loftcoin.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
@@ -48,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(title));
 
         mainViewModel.selectedId().observe(this, itemId -> replaceFragment(itemId));
-    }
 
+        mainViewModel.selectedId().observe(this, itemId -> bottomNavigationView.setSelectedItemId(itemId));
+
+    }
     private void replaceFragment(int itemId) {
         final Supplier<Fragment> factory = FRAGMENTS.get(itemId);
         if (factory != null) {
