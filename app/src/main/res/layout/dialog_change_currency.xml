@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:minWidth="300dp"
+    android:minHeight="240dp"
+    android:background="@color/dark_two"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    >
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?attr/textAppearanceHeadline3"
+        android:paddingTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/item_usd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/symbol_usd"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/dark_three"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline4WhiteBold"
+            tools:text="$" />
+
+        <TextView
+            android:id="@+id/currency_name_usd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textAppearance="?attr/textAppearanceHeadline4WhiteBold"
+            tools:text="Dollar | USD" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_eur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/symbol_eur"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/dark_three"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline4WhiteBold"
+            tools:text="$" />
+
+        <TextView
+            android:id="@+id/currency_name_eur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textAppearance="?attr/textAppearanceHeadline4WhiteBold"
+            tools:text="Dollar | USD" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_rub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/symbol_rub"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/dark_three"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline4WhiteBold"
+            tools:text="$" />
+
+        <TextView
+            android:id="@+id/currency_name_rub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textAppearance="?attr/textAppearanceHeadline4WhiteBold"
+            tools:text="Dollar | USD" />
+
+    </LinearLayout>
+
+</LinearLayout>

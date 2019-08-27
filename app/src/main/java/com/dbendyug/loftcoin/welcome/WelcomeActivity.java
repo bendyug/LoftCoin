@@ -1,4 +1,4 @@
-package com.dbendyug.loftcoin.activity;
+package com.dbendyug.loftcoin.welcome;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbendyug.loftcoin.R;
+import com.dbendyug.loftcoin.main.MainActivity;
 import com.dbendyug.loftcoin.util.Settings;
-import com.dbendyug.loftcoin.adapter.WelcomePagerAdapter;
 
 import me.relex.circleindicator.CircleIndicator2;
 

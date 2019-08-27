@@ -1,4 +1,4 @@
-package com.dbendyug.loftcoin.fragment;
+package com.dbendyug.loftcoin.converter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dbendyug.loftcoin.R;
-import com.dbendyug.loftcoin.viewmodel.MainViewModel;
+import com.dbendyug.loftcoin.main.MainViewModel;
 
 public class ConverterFragment extends Fragment {
 

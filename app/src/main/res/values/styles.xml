@@ -7,7 +7,9 @@
         <item name="android:windowBackground">?attr/colorPrimary</item>
         <item name="textAppearanceHeadline1">@style/TextAppearance.H1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.H2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.H3</item>
         <item name="textAppearanceHeadline4">@style/TextAppearance.H4</item>
+        <item name="textAppearanceHeadline4WhiteBold">@style/TextAppearance.H4.WhiteBold</item>
         <item name="gradientButtonStart">@style/Widget.AppTheme.Button</item>
         <item name="walletCardBackground">@color/dark_five</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
@@ -34,11 +36,25 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="TextAppearance.H3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="TextAppearance.H4" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">Roboto-Medium</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/blue_grey</item>
+    </style>
+
+    <style name="TextAppearance.H4.WhiteBold" parent="TextAppearance.H4">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="Widget.AppTheme.Button" parent="Widget.AppCompat.Button.Borderless">
@@ -61,6 +77,7 @@
     <declare-styleable name="AppTheme">
         <attr name="gradientButtonStart" format="reference" />
         <attr name="walletCardBackground" format="reference" />
+        <attr name="textAppearanceHeadline4WhiteBold" format="reference"/>
     </declare-styleable>
 
 </resources>
