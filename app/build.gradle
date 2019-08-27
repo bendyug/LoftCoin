@@ -11,8 +11,8 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "COIN_API_KEY", "\"${coinAPIKey}\""
-        buildConfigField "String", "COIN_API_URL", "https://pro-api.coinmarketcap.com/v1"
-        buildConfigField "String", "COIN_IMAGE_URL", "https://s2.coinmarketcap.com/static/img"
+        buildConfigField "String", "COIN_API_URL", '"https://pro-api.coinmarketcap.com/v1/"'
+        buildConfigField "String", "COIN_IMAGE_URL", '"https://s2.coinmarketcap.com/static/img/"'
 
     }
     buildTypes {

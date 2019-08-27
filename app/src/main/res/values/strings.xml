@@ -15,5 +15,11 @@
     <string name="change_currency">Change currency</string>
     <string name="sort">Sort</string>
     <string name="exchange_rates_tab_name">General analysis</string>
+    <string name="rouble_symbol" translatable="false">₽</string>
+    <string name="dollar_symbol" translatable="false">$</string>
+    <string name="euro_symbol" translatable="false">€</string>
+    <string name="dollar" translatable="false">Dollar | USD</string>
+    <string name="euro" translatable="false">Euro | EUR</string>
+    <string name="rouble" translatable="false">Rouble | RUB</string>
 
 </resources>

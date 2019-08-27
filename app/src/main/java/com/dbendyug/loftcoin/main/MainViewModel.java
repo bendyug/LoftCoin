@@ -31,8 +31,6 @@ public class MainViewModel extends ViewModel {
 
     }
 
-
-
     public LiveData<String> title() {
         return title;
     }

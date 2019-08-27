@@ -18,7 +18,7 @@
       "platform": null,
       "quote": {
         "USD": {
-          "price": 9283.92,
+          "price": 9283.9515151512,
           "volume_24h": 7155680000,
           "percent_change_1h": -0.152774,
           "percent_change_24h": 0.518894,
@@ -27,11 +27,11 @@
           "last_updated": "2018-08-09T22:53:32.000Z"
         },
         "BTC": {
-          "price": 1,
+          "price": 12365.25,
           "volume_24h": 772012,
-          "percent_change_1h": 0,
-          "percent_change_24h": 0,
-          "percent_change_7d": 0,
+          "percent_change_1h": 0.000745,
+          "percent_change_24h": 0.000745,
+          "percent_change_7d": 0.000745,
           "market_cap": 17024600,
           "last_updated": "2018-08-09T22:53:32.000Z"
         }

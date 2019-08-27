@@ -11,7 +11,7 @@
     <string name="exchange_rates">Курс</string>
     <string name="converter">Конвертер</string>
     <string name="add_wallet">Добавить кошелёк</string>
-    <string name="change_currency">Сменить валюту</string>
+    <string name="change_currency">Выбор валюты</string>
     <string name="sort">Сортировать</string>
     <string name="exchange_rates_tab_name">Общий анализ</string>
 

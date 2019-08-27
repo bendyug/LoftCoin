@@ -13,6 +13,8 @@
     <color name="grey_blue">#66688f</color>
     <color name="slate">#51526b</color>
     <color name="dusk">#3f415d</color>
+    <color name="dark_two">#212237</color>
+    <color name="dark_three">#19192a</color>
     <color name="dark_four">#313249</color>
     <color name="dark_five">#2e2f47</color>
     <color name="dark_six">#191a2a</color>
@@ -22,6 +24,8 @@
     <color name="golden_yellow">#f6ca1d</color>
     <color name="white_transparent_20">#33FFFFFF</color>
     <color name="steel">#73738e</color>
+    <color name="price_change_positive">#3de77b</color>
+    <color name="price_change_negative">#ff4464</color>
 
 
 </resources>

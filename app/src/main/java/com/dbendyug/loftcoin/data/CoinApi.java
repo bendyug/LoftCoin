@@ -24,8 +24,7 @@ public interface CoinApi {
         @NotNull
         @Override
         public Response intercept(@NotNull Chain chain) throws IOException {
-            Response response = chain.proceed(chain.request());
-            return response.newBuilder().addHeader(KEY_HEADER, BuildConfig.COIN_API_KEY).build();
+            return chain.proceed(chain.request().newBuilder().addHeader(KEY_HEADER, BuildConfig.COIN_API_KEY).build());
         }
     }
 }
