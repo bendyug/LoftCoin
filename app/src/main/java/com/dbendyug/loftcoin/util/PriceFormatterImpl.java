@@ -20,6 +20,12 @@ public class PriceFormatterImpl implements PriceFormatter {
 
     @Override
     public String format(double value) {
-        return NumberFormat.getCurrencyInstance(locale).format(value);
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        if (value > 1d){
+            return numberFormat.format(value);
+        } else{
+            numberFormat.setMaximumFractionDigits(6);
+            return numberFormat.format(value);
+        }
     }
 }
