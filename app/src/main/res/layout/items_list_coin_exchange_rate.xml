@@ -11,8 +11,8 @@
         android:id="@+id/coin_image"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:scaleType="centerCrop"
         android:background="@color/blue_grey"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,40 +23,32 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:textAppearance="?attr/textAppearanceHeadline3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/coin_image"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@sample/coins.json/data/symbol"
-        android:textAppearance="?attr/textAppearanceHeadline3"/>
+        tools:text="@sample/coins.json/data/symbol" />
 
     <TextView
         android:id="@+id/coin_price"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        app:layout_constraintBottom_toTopOf="@id/coin_change_24h"
-        app:layout_constraintEnd_toStartOf="@id/price_change_guideline"
-        app:layout_constraintTop_toTopOf="parent"
         android:textAppearance="?attr/textAppearanceHeadline3"
+        app:layout_constraintBottom_toTopOf="@id/coin_change_24h"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@sample/coins.json/data/quote/USD/price" />
 
     <TextView
         android:id="@+id/coin_change_24h"
-        android:layout_marginBottom="12dp"
-        android:layout_width="0dp"
-        android:textAppearance="?attr/textAppearanceHeadline4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:textAppearance="?attr/textAppearanceHeadline4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/price_change_guideline"
         tools:text="@sample/coins.json/data/quote/USD/percent_change_24h" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/price_change_guideline"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
