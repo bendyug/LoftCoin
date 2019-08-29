@@ -18,7 +18,6 @@ public interface CoinApi {
 
     @GET("cryptocurrency/listings/latest")
     Call<Listings> listings (@Query("convert") String convert);
-
     class KeyInterceptor implements Interceptor{
 
         @NotNull

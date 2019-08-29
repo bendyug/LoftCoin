@@ -20,10 +20,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 public class ExchangeRatesAdapter extends ListAdapter<CoinExchangeRate, ExchangeRatesAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
 
+    @Inject
     ExchangeRatesAdapter() {
         super(new DiffUtil.ItemCallback<CoinExchangeRate>() {
             @Override

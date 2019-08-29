@@ -3,6 +3,7 @@ package com.dbendyug.loftcoin.main;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -16,26 +17,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final SparseArrayCompat<Supplier<Fragment>> FRAGMENTS;
+    @Inject MainNavigator mainNavigator;
 
-    static {
-        FRAGMENTS = new SparseArrayCompat<>();
-        FRAGMENTS.put(R.id.wallets, () -> new WalletsFragment());
-        FRAGMENTS.put(R.id.exchange_rates, () -> new ExchangeRatesFragment());
-        FRAGMENTS.put(R.id.converter, () -> new ConverterFragment());
-    }
+    @Inject ViewModelProvider.Factory viewModelProviderFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DaggerMainComponent.builder()
+        .activity(this)
+        .build()
+        .inject(this);
+
         setContentView(R.layout.activity_main);
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        final MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        final MainViewModel mainViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+                .get(MainViewModel.class);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_menu);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
@@ -46,17 +51,9 @@ public class MainActivity extends AppCompatActivity {
         mainViewModel.title().observe(this, title -> Objects.requireNonNull(getSupportActionBar())
                 .setTitle(title));
 
-        mainViewModel.selectedId().observe(this, itemId -> replaceFragment(itemId));
+        mainViewModel.selectedId().observe(this, id -> mainNavigator.replaceFragment(id));
 
         mainViewModel.selectedId().observe(this, itemId -> bottomNavigationView.setSelectedItemId(itemId));
 
-    }
-    private void replaceFragment(int itemId) {
-        final Supplier<Fragment> factory = FRAGMENTS.get(itemId);
-        if (factory != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_host, factory.get())
-                    .commit();
-        }
     }
 }

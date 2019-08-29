@@ -1,25 +1,25 @@
 package com.dbendyug.loftcoin.util;
 
-import android.content.Context;
-
-import androidx.core.os.ConfigurationCompat;
-import androidx.core.os.LocaleListCompat;
-
-import java.text.NumberFormat;
 import java.util.Locale;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import dagger.Reusable;
+
+@Reusable
 public class Change24hFormatterImpl implements Change24hFormatter {
 
-    private Locale locale;
+    private Provider<Locale> locale;
 
-    public Change24hFormatterImpl(Context context){
+    @Inject
+    Change24hFormatterImpl(Provider<Locale> locale){
 
-        LocaleListCompat localeList = ConfigurationCompat.getLocales(context.getResources().getConfiguration());
-        locale = localeList.get(0);
+        this.locale = locale;
     }
 
     @Override
     public String format(double value) {
-        return String.format(locale, "%.4f%%", value);
+        return String.format(locale.get(), "%.4f%%", value);
     }
 }
