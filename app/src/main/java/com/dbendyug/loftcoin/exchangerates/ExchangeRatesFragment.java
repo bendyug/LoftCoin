@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dbendyug.loftcoin.R;
 import com.dbendyug.loftcoin.main.MainViewModel;
+
+import javax.inject.Inject;
 
 
 public class ExchangeRatesFragment extends Fragment {
@@ -28,17 +31,25 @@ public class ExchangeRatesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ExchangeRatesAdapter exchangeRatesAdapter;
+
+    @Inject ViewModelProvider.Factory viewModelProviderFactory;
+
+    @Inject ExchangeRatesAdapter exchangeRatesAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = ViewModelProviders.of(requireActivity())
-                .get(MainViewModel.class);
-        exchangeRatesViewModel = ViewModelProviders.of(this, new ExchangeRatesViewModel.Factory(requireContext()))
-                .get(ExchangeRatesViewModel.class);
 
-        exchangeRatesAdapter = new ExchangeRatesAdapter();
+        DaggerExchangeRatesComponent
+                .builder()
+                .fragment(this)
+                .build()
+                .inject(this);
+
+        mainViewModel = ViewModelProviders.of(requireActivity(), viewModelProviderFactory)
+                .get(MainViewModel.class);
+        exchangeRatesViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+                .get(ExchangeRatesViewModel.class);
     }
 
     @Nullable

@@ -14,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dbendyug.loftcoin.R;
+
+import javax.inject.Inject;
 
 public class CurrencyDialog extends DialogFragment {
     private TextView dialogTitle;
@@ -35,11 +38,30 @@ public class CurrencyDialog extends DialogFragment {
 
     private AppCompatDialog dialog;
 
+    private ExchangeRatesViewModel exchangeRatesViewModel;
+
+    @Inject
+    ViewModelProvider.Factory viewModelProviderFactory;
+
 
     public static final String TAG = "CURRENCY_CHANGE_TAG";
     private static final String DOLLAR = "USD";
     private static final String EURO = "EUR";
     private static final String ROUBLE = "RUB";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        DaggerExchangeRatesComponent.builder()
+                .fragment(requireParentFragment())
+                .build()
+                .inject(this);
+
+        exchangeRatesViewModel = ViewModelProviders
+                .of(requireParentFragment(), viewModelProviderFactory)
+                .get(ExchangeRatesViewModel.class);
+    }
 
     @Nullable
     @Override
@@ -52,15 +74,11 @@ public class CurrencyDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         dialog = new AppCompatDialog(requireContext());
         return dialog;
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ExchangeRatesViewModel exchangeRatesViewModel = ViewModelProviders
-                .of(requireParentFragment(), new ExchangeRatesViewModel.Factory(getContext()))
-                .get(ExchangeRatesViewModel.class);
 
         dialogTitle = getView().findViewById(R.id.dialog_title);
         dialogTitle.setText(R.string.change_currency);

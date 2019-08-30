@@ -4,7 +4,14 @@ import com.dbendyug.loftcoin.BuildConfig;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 public class ImageURLFormatterImpl implements ImageURLFormatter {
+
+    @Inject
+    ImageURLFormatterImpl(){
+
+    }
 
     @Override
     public String format(int id) {
