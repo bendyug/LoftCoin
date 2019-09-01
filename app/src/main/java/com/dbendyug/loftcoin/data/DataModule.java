@@ -2,6 +2,8 @@ package com.dbendyug.loftcoin.data;
 
 import com.dbendyug.loftcoin.BuildConfig;
 
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Binds;
@@ -34,7 +36,9 @@ public interface DataModule {
     static CoinApi coinApi(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder().client(okHttpClient)
                 .baseUrl(BuildConfig.COIN_API_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create())
+                .callbackExecutor(Executors.newFixedThreadPool(4))
+                .build();
         return retrofit.create(CoinApi.class);
     }
 

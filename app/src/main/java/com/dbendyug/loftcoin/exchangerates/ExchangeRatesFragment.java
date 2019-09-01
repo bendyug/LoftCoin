@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dbendyug.loftcoin.R;
+import com.dbendyug.loftcoin.data.CurrenciesReposytory;
 import com.dbendyug.loftcoin.main.MainViewModel;
 
 import javax.inject.Inject;
@@ -35,6 +36,9 @@ public class ExchangeRatesFragment extends Fragment {
     @Inject ViewModelProvider.Factory viewModelProviderFactory;
 
     @Inject ExchangeRatesAdapter exchangeRatesAdapter;
+
+    @Inject
+    CurrenciesReposytory currenciesReposytory;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class ExchangeRatesFragment extends Fragment {
         exchangeRatesViewModel.error().observe(this,
                 error -> Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show());
         exchangeRatesViewModel.coinData().observe(this,
-                coinExchangeRates -> exchangeRatesAdapter.submitList(coinExchangeRates));
+                coinEntities -> exchangeRatesAdapter.submitList(coinEntities));
     }
 
     @Override
@@ -95,7 +99,7 @@ public class ExchangeRatesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (R.id.menu_change_currency == item.getItemId()){
-            CurrencyDialog dialog = new CurrencyDialog();
+            CurrencyDialog dialog = new CurrencyDialog(currenciesReposytory);
             dialog.show(getChildFragmentManager(), CurrencyDialog.TAG);
             return true;
         }

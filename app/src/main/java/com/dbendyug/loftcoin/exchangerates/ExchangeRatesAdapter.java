@@ -16,29 +16,40 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbendyug.loftcoin.R;
+import com.dbendyug.loftcoin.db.CoinEntity;
+import com.dbendyug.loftcoin.util.Change24hFormatter;
+import com.dbendyug.loftcoin.util.ImageURLFormatter;
+import com.dbendyug.loftcoin.util.PriceFormatter;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class ExchangeRatesAdapter extends ListAdapter<CoinExchangeRate, ExchangeRatesAdapter.ViewHolder> {
+public class ExchangeRatesAdapter extends ListAdapter<CoinEntity, ExchangeRatesAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
+    private ImageURLFormatter imageURLFormatter;
+    private PriceFormatter priceFormatter;
+    private Change24hFormatter change24hFormatter;
 
     @Inject
-    ExchangeRatesAdapter() {
-        super(new DiffUtil.ItemCallback<CoinExchangeRate>() {
+    ExchangeRatesAdapter(ImageURLFormatter imageURLFormatter, PriceFormatter priceFormatter, Change24hFormatter change24hFormatter) {
+        super(new DiffUtil.ItemCallback<CoinEntity>() {
             @Override
-            public boolean areItemsTheSame(@NonNull CoinExchangeRate oldItem, @NonNull CoinExchangeRate newItem) {
+            public boolean areItemsTheSame(@NonNull CoinEntity oldItem, @NonNull CoinEntity newItem) {
                 return oldItem.id() == newItem.id();
             }
 
             @Override
-            public boolean areContentsTheSame(@NonNull CoinExchangeRate oldItem, @NonNull CoinExchangeRate newItem) {
+            public boolean areContentsTheSame(@NonNull CoinEntity oldItem, @NonNull CoinEntity newItem) {
                 return Objects.equals(oldItem, newItem);
             }
         });
+
+        this.imageURLFormatter = imageURLFormatter;
+        this.priceFormatter = priceFormatter;
+        this.change24hFormatter = change24hFormatter;
         setHasStableIds(true);
     }
 
@@ -52,16 +63,17 @@ public class ExchangeRatesAdapter extends ListAdapter<CoinExchangeRate, Exchange
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        CoinExchangeRate rate= getItem(position);
+        CoinEntity coinEntity = getItem(position);
 
-        Picasso.get().load(rate.imageUrl()).into(holder.coinImage);
-        holder.coinSymbol.setText(rate.symbol());
-        holder.coinPrice.setText(rate.price());
-        holder.coinChange24h.setText(rate.change24h());
+        Picasso.get().load(imageURLFormatter.format(coinEntity.id())).into(holder.coinImage);
+
+        holder.coinSymbol.setText(coinEntity.symbol());
+        holder.coinPrice.setText(priceFormatter.format(coinEntity.price()));
+        holder.coinChange24h.setText(change24hFormatter.format(coinEntity.change24h()));
 
         Resources resources = holder.itemView.getResources();
         Resources.Theme theme = holder.itemView.getContext().getTheme();
-        if (rate.isChange24hPositive()){
+        if (coinEntity.change24h() > 0){
             holder.coinChange24h.setTextColor(ResourcesCompat.getColor(resources, R.color.price_change_positive, theme));
         } else {
             holder.coinChange24h.setTextColor(ResourcesCompat.getColor(resources, R.color.price_change_negative, theme));

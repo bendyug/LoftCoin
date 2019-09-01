@@ -1,8 +1,11 @@
 package com.dbendyug.loftcoin.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Pair;
 
-import java.util.Currency;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -10,18 +13,33 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Singleton
-class CurrenciesReposytoryImpl implements CurrenciesReposytory {
+public class CurrenciesReposytoryImpl implements CurrenciesReposytory {
 
-    private Provider<Locale> locale;
+    private static final String CURRENCY_KEY = "currency_key";
+    private Context context;
 
 
     @Inject
-    CurrenciesReposytoryImpl(Provider<Locale> locale) {
-        this.locale = locale;
+    CurrenciesReposytoryImpl(Context context) {
+        this.context = context;
     }
 
     @Override
-    public Pair<Currency, Locale> getPair() {
-     return Pair.create(Currency.getInstance(locale.get()), locale.get());
+    public List<Currency> getAvailableCurrencies() {
+        return Arrays.asList(Currency.values());
+    }
+
+    @Override
+    public Currency getCurrentCurrency() {
+        return Currency.valueOf(getSharedPreferences().getString(CURRENCY_KEY, Currency.RUB.currencyName()));
+    }
+
+    @Override
+    public void setCurrentCurrency(Currency currency) {
+        getSharedPreferences().edit().putString(CURRENCY_KEY, currency.currencyName()).apply();
+    }
+
+    private SharedPreferences getSharedPreferences(){
+        return context.getSharedPreferences("currencies", Context.MODE_PRIVATE);
     }
 }

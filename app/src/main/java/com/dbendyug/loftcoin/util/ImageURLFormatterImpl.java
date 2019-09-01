@@ -6,6 +6,9 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import dagger.Reusable;
+
+@Reusable
 public class ImageURLFormatterImpl implements ImageURLFormatter {
 
     @Inject
@@ -14,7 +17,7 @@ public class ImageURLFormatterImpl implements ImageURLFormatter {
     }
 
     @Override
-    public String format(int id) {
+    public String format(long id) {
         return String.format(Locale.US, "%scoins/64x64/%d.png", BuildConfig.COIN_IMAGE_URL, id);
     }
 }

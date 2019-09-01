@@ -1,8 +1,13 @@
 package com.dbendyug.loftcoin.data;
 
+import androidx.lifecycle.LiveData;
+
 import com.dbendyug.loftcoin.BuildConfig;
+import com.dbendyug.loftcoin.db.CoinEntity;
+import com.dbendyug.loftcoin.db.LoftDb;
 import com.dbendyug.loftcoin.util.Consumer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,9 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 class CoinsRepositoryImplementation implements CoinsRepository {
 
     private CoinApi coinApi;
+    private LoftDb loftDb;
 
-    @Inject CoinsRepositoryImplementation(CoinApi coinApi){
+    @Inject CoinsRepositoryImplementation(CoinApi coinApi,
+                                          LoftDb loftDb){
         this.coinApi = coinApi;
+        this.loftDb = loftDb;
     }
 
     @Override
@@ -45,5 +53,29 @@ class CoinsRepositoryImplementation implements CoinsRepository {
             }
         });
 
+    }
+
+    @Override
+    public LiveData<List<CoinEntity>> listings() {
+        return loftDb.coins().fetchAll();
+    }
+
+    @Override
+    public void refresh(String convert, Runnable onSuccess, Consumer<Throwable> onError) {
+        listing(convert, coins -> {
+            List<CoinEntity> entities = new ArrayList<>();
+            for (Coin coin : coins){
+                double price = 0d;
+                double change24h = 0d;
+                Quote quote = coin.getQuote().get(convert);
+                if (quote != null){
+                    price = quote.getPrice();
+                    change24h = quote.getChange24h();
+                }
+                entities.add(CoinEntity.create(coin.getId(), coin.getSymbol(), price, change24h));
+            }
+            loftDb.coins().insertAll(entities);
+            onSuccess.run();
+        }, onError);
     }
 }
