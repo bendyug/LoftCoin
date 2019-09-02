@@ -18,6 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dbendyug.loftcoin.R;
+import com.dbendyug.loftcoin.data.CurrenciesReposytory;
+import com.dbendyug.loftcoin.data.Currency;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,14 +44,21 @@ public class CurrencyDialog extends DialogFragment {
 
     private ExchangeRatesViewModel exchangeRatesViewModel;
 
+    private List<Currency> currencies;
+
     @Inject
     ViewModelProvider.Factory viewModelProviderFactory;
 
+    @Inject
+    CurrencyDialog (CurrenciesReposytory currenciesReposytory){
+        this.currencies = currenciesReposytory.getAvailableCurrencies();
+    }
+
 
     public static final String TAG = "CURRENCY_CHANGE_TAG";
-    private static final String DOLLAR = "USD";
-    private static final String EURO = "EUR";
-    private static final String ROUBLE = "RUB";
+//    private static final String DOLLAR = "USD";
+//    private static final String EURO = "EUR";
+//    private static final String ROUBLE = "RUB";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,15 +113,15 @@ public class CurrencyDialog extends DialogFragment {
         itemRub = getView().findViewById(R.id.item_rub);
 
         itemUsd.setOnClickListener(view -> {
-            exchangeRatesViewModel.setCurrency(DOLLAR);
+            exchangeRatesViewModel.setCurrency(currencies.get(0));
             dialog.dismiss();
         });
         itemEur.setOnClickListener(view -> {
-            exchangeRatesViewModel.setCurrency(EURO);
+            exchangeRatesViewModel.setCurrency(currencies.get(1));
             dialog.dismiss();
         });
         itemRub.setOnClickListener(view -> {
-            exchangeRatesViewModel.setCurrency(ROUBLE);
+            exchangeRatesViewModel.setCurrency(currencies.get(2));
             dialog.dismiss();
         });
 

@@ -21,5 +21,8 @@
     <string name="dollar" translatable="false">Dollar | USD</string>
     <string name="euro" translatable="false">Euro | EUR</string>
     <string name="rouble" translatable="false">Rouble | RUB</string>
+    <string name="USD" translatable="false">USD</string>
+    <string name="EUR" translatable="false">EUR</string>
+    <string name="RUB" translatable="false">RUB</string>
 
 </resources>
