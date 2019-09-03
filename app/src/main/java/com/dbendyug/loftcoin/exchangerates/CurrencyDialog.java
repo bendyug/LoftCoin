@@ -42,9 +42,12 @@ public class CurrencyDialog extends DialogFragment {
 
     private AppCompatDialog dialog;
 
-    private ExchangeRatesViewModel exchangeRatesViewModel;
+//    private ExchangeRatesViewModel exchangeRatesViewModel;
 
     private List<Currency> currencies;
+
+    @Inject
+    CurrenciesReposytory currenciesReposytory;
 
     @Inject
     ViewModelProvider.Factory viewModelProviderFactory;
@@ -69,9 +72,9 @@ public class CurrencyDialog extends DialogFragment {
                 .build()
                 .inject(this);
 
-        exchangeRatesViewModel = ViewModelProviders
-                .of(requireParentFragment(), viewModelProviderFactory)
-                .get(ExchangeRatesViewModel.class);
+//        exchangeRatesViewModel = ViewModelProviders
+//                .of(requireParentFragment(), viewModelProviderFactory)
+//                .get(ExchangeRatesViewModel.class);
     }
 
     @Nullable
@@ -113,15 +116,15 @@ public class CurrencyDialog extends DialogFragment {
         itemRub = getView().findViewById(R.id.item_rub);
 
         itemUsd.setOnClickListener(view -> {
-            exchangeRatesViewModel.setCurrency(currencies.get(0));
+            currenciesReposytory.setCurrentCurrency(currencies.get(0));
             dialog.dismiss();
         });
         itemEur.setOnClickListener(view -> {
-            exchangeRatesViewModel.setCurrency(currencies.get(1));
+            currenciesReposytory.setCurrentCurrency(currencies.get(1));
             dialog.dismiss();
         });
         itemRub.setOnClickListener(view -> {
-            exchangeRatesViewModel.setCurrency(currencies.get(2));
+            currenciesReposytory.setCurrentCurrency(currencies.get(2));
             dialog.dismiss();
         });
 

@@ -8,11 +8,16 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 @Dao
 public interface CoinDao {
 
+//    @Query("SELECT * FROM coins")
+//    LiveData<List<CoinEntity>> fetchAll();
+
     @Query("SELECT * FROM coins")
-    LiveData<List<CoinEntity>> fetchAll();
+    Observable<List<CoinEntity>> fetchAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<CoinEntity> coins);

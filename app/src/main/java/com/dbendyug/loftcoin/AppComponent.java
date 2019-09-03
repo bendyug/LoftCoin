@@ -6,6 +6,8 @@ import android.content.Context;
 import com.dbendyug.loftcoin.data.CoinsRepository;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
 import com.dbendyug.loftcoin.data.DataModule;
+import com.dbendyug.loftcoin.rx.RxModule;
+import com.dbendyug.loftcoin.rx.RxScheduler;
 
 import java.util.Locale;
 
@@ -18,7 +20,8 @@ import dagger.Component;
 @Singleton
 @Component (modules = {
         AppModule.class,
-        DataModule.class
+        DataModule.class,
+        RxModule.class
 })
 public interface AppComponent {
 
@@ -31,6 +34,8 @@ public interface AppComponent {
     CoinsRepository coinsRepository();
 
     CurrenciesReposytory currenciesRepository();
+
+    RxScheduler rxScheduler();
 
     @Component.Factory
     interface Factory {

@@ -12,6 +12,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -37,6 +38,7 @@ public interface DataModule {
         Retrofit retrofit = new Retrofit.Builder().client(okHttpClient)
                 .baseUrl(BuildConfig.COIN_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .callbackExecutor(Executors.newFixedThreadPool(4))
                 .build();
         return retrofit.create(CoinApi.class);

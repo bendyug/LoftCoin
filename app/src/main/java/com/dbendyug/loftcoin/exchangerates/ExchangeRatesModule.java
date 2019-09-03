@@ -8,6 +8,7 @@ import com.dbendyug.loftcoin.data.Coin;
 import com.dbendyug.loftcoin.data.CoinsRepository;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
 import com.dbendyug.loftcoin.main.MainViewModel;
+import com.dbendyug.loftcoin.rx.RxScheduler;
 import com.dbendyug.loftcoin.util.Function;
 
 import java.util.List;
@@ -45,10 +46,16 @@ interface ExchangeRatesModule {
     }
 
     @Provides
+    static RxScheduler rxScheduler(AppComponent appComponent){
+        return appComponent.rxScheduler();
+    }
+
+    @Provides
     @Reusable
     static CurrenciesReposytory currenciesRepository(AppComponent appComponent){
         return appComponent.currenciesRepository();
     }
+
 
     @Provides
     @Reusable

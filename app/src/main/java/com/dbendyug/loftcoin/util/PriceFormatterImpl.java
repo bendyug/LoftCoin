@@ -40,6 +40,7 @@ public class PriceFormatterImpl implements PriceFormatter {
             return numberFormat.format(value);
         } else{
             numberFormat.setMaximumFractionDigits(6);
+            setCurrencySymbol(numberFormat);
             return numberFormat.format(value);
         }
 
