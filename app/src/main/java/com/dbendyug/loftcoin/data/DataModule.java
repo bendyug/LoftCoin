@@ -20,10 +20,10 @@ public interface DataModule {
 
     @Provides
     @Singleton
-    static OkHttpClient okHttpClient(){
-    OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+    static OkHttpClient okHttpClient() {
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         okHttpClient.addInterceptor(new CoinApi.KeyInterceptor());
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.level(HttpLoggingInterceptor.Level.HEADERS);
             loggingInterceptor.redactHeader(CoinApi.KEY_HEADER);
@@ -49,4 +49,7 @@ public interface DataModule {
 
     @Binds
     CurrenciesReposytory currenciesRepository(CurrenciesReposytoryImpl currenciesReposytoryImpl);
+
+    @Binds
+    WalletsRepository walletRepository(WalletsRepositoryImpl walletsRepositoryImpl);
 }

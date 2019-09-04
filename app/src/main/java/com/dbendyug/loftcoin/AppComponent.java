@@ -6,6 +6,7 @@ import android.content.Context;
 import com.dbendyug.loftcoin.data.CoinsRepository;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
 import com.dbendyug.loftcoin.data.DataModule;
+import com.dbendyug.loftcoin.data.WalletsRepository;
 import com.dbendyug.loftcoin.rx.RxModule;
 import com.dbendyug.loftcoin.rx.RxScheduler;
 
@@ -18,14 +19,14 @@ import dagger.BindsInstance;
 import dagger.Component;
 
 @Singleton
-@Component (modules = {
+@Component(modules = {
         AppModule.class,
         DataModule.class,
         RxModule.class
 })
 public interface AppComponent {
 
-    static AppComponent from(Context context){
+    static AppComponent from(Context context) {
         return ((LoftApp) context.getApplicationContext()).getAppComponent();
     }
 
@@ -36,6 +37,8 @@ public interface AppComponent {
     CurrenciesReposytory currenciesRepository();
 
     RxScheduler rxScheduler();
+
+    WalletsRepository walletsRepository();
 
     @Component.Factory
     interface Factory {

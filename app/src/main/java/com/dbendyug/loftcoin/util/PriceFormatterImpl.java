@@ -26,7 +26,7 @@ public class PriceFormatterImpl implements PriceFormatter {
 
     @Inject
     PriceFormatterImpl(CurrenciesReposytory currenciesReposytory,
-                       Provider<Locale> locale){
+                       Provider<Locale> locale) {
 
         this.currenciesReposytory = currenciesReposytory;
         this.locale = locale;
@@ -35,22 +35,34 @@ public class PriceFormatterImpl implements PriceFormatter {
     @Override
     public String format(double value) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale.get());
-        if (value > 1d){
+        if (value < 1d && value > -1d) {
+            numberFormat.setMaximumFractionDigits(6);
             setCurrencySymbol(numberFormat);
             return numberFormat.format(value);
-        } else{
-            numberFormat.setMaximumFractionDigits(6);
+        } else {
             setCurrencySymbol(numberFormat);
             return numberFormat.format(value);
         }
 
     }
 
-    public DecimalFormat setCurrencySymbol(NumberFormat numberFormat) {
+    DecimalFormat setCurrencySymbol(NumberFormat numberFormat) {
         DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
         DecimalFormatSymbols symbols = decimalFormat.getDecimalFormatSymbols();
         symbols.setCurrencySymbol(currenciesReposytory.getCurrentCurrency().getCurrencySymbol());
         decimalFormat.setDecimalFormatSymbols(symbols);
         return decimalFormat;
     }
+
+    @Override
+    public String format(double value, String sign) {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale.get());
+        numberFormat.setMaximumFractionDigits(6);
+        DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+        DecimalFormatSymbols symbols = decimalFormat.getDecimalFormatSymbols();
+        symbols.setCurrencySymbol(sign);
+        decimalFormat.setDecimalFormatSymbols(symbols);
+        return numberFormat.format(value);
+    }
+
 }
