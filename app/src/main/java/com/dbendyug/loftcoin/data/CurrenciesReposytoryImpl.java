@@ -12,16 +12,29 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
+
 @Singleton
 public class CurrenciesReposytoryImpl implements CurrenciesReposytory {
 
     private static final String CURRENCY_KEY = "currency_key";
-    private Context context;
+
+    private SharedPreferences sharedPreferences;
+
+//    private Subject<Currency> currencySubject;
 
 
     @Inject
     CurrenciesReposytoryImpl(Context context) {
-        this.context = context;
+        sharedPreferences = context.getSharedPreferences("currencies", Context.MODE_PRIVATE);
+
+//        currencySubject = BehaviorSubject.createDefault(getCurrentCurrency());
+//
+//        sharedPreferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
+//            currencySubject.onNext(getCurrentCurrency());
+//        });
     }
 
     @Override
@@ -31,15 +44,27 @@ public class CurrenciesReposytoryImpl implements CurrenciesReposytory {
 
     @Override
     public Currency getCurrentCurrency() {
-        return Currency.valueOf(getSharedPreferences().getString(CURRENCY_KEY, Currency.RUB.currencyName()));
+        return Currency.valueOf(sharedPreferences.getString(CURRENCY_KEY, Currency.RUB.currencyName()));
     }
 
     @Override
     public void setCurrentCurrency(Currency currency) {
-        getSharedPreferences().edit().putString(CURRENCY_KEY, currency.currencyName()).apply();
+        sharedPreferences.edit().putString(CURRENCY_KEY, currency.currencyName()).apply();
     }
 
-    private SharedPreferences getSharedPreferences(){
-        return context.getSharedPreferences("currencies", Context.MODE_PRIVATE);
+    @Override
+    public Observable<Currency> currentCurrency() {
+        return Observable.create(emitter -> {
+            SharedPreferences.OnSharedPreferenceChangeListener listener = (prefs, key) -> {
+                emitter.onNext(getCurrentCurrency());
+            };
+            emitter.setCancellable(() -> sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener));
+            sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
+            emitter.onNext(getCurrentCurrency());
+        });
     }
+
+//    private SharedPreferences getSharedPreferences(){
+//        return context.getSharedPreferences("currencies", Context.MODE_PRIVATE);
+//    }
 }

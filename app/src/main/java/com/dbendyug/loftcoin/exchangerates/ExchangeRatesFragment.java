@@ -24,6 +24,8 @@ import com.dbendyug.loftcoin.main.MainViewModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 
 public class ExchangeRatesFragment extends Fragment {
 
@@ -32,6 +34,8 @@ public class ExchangeRatesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     @Inject ViewModelProvider.Factory viewModelProviderFactory;
 
@@ -75,12 +79,23 @@ public class ExchangeRatesFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.refresher);
         swipeRefreshLayout.setOnRefreshListener(() -> exchangeRatesViewModel.refresh());
 
-        exchangeRatesViewModel.isRefreshing().observe(this,
-                isRefreshing -> swipeRefreshLayout.setRefreshing(isRefreshing));
-        exchangeRatesViewModel.error().observe(this,
-                error -> Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show());
-        exchangeRatesViewModel.coinData().observe(this,
-                coinEntities -> exchangeRatesAdapter.submitList(coinEntities));
+        disposable.add(exchangeRatesViewModel.uiState().subscribe(state -> {
+            swipeRefreshLayout.setRefreshing(state.isRefreshing());
+            if (!state.exchangeRates().isEmpty()){
+                exchangeRatesAdapter.submitList(state.exchangeRates());
+            }
+            String error = state.error();
+            if (error != null){
+                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+            }
+        }));
+
+//        exchangeRatesViewModel.isRefreshing().observe(this,
+//                isRefreshing -> swipeRefreshLayout.setRefreshing(isRefreshing));
+//        exchangeRatesViewModel.error().observe(this,
+//                error -> Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show());
+//        exchangeRatesViewModel.coinData().observe(this,
+//                coinEntities -> exchangeRatesAdapter.submitList(coinEntities));
     }
 
     @Override
@@ -110,5 +125,6 @@ public class ExchangeRatesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         recyclerView.swapAdapter(null, false);
+        disposable.clear();
     }
 }

@@ -14,5 +14,6 @@
     <string name="change_currency">Выбор валюты</string>
     <string name="sort">Сортировать</string>
     <string name="exchange_rates_tab_name">Общий анализ</string>
+    <string name="wallet_created">Кошелёк успешно создан</string>
 
 </resources>

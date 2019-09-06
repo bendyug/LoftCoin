@@ -5,6 +5,8 @@ import android.util.Pair;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.Observable;
+
 public interface CurrenciesReposytory {
 
     List<Currency> getAvailableCurrencies();
@@ -12,4 +14,6 @@ public interface CurrenciesReposytory {
     Currency getCurrentCurrency();
 
     void setCurrentCurrency(Currency currency);
+
+    Observable<Currency> currentCurrency();
 }

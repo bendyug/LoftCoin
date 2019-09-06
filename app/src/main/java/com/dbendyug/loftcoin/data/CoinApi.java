@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import io.reactivex.Observable;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 import retrofit2.Call;
@@ -16,8 +17,13 @@ public interface CoinApi {
 
     String KEY_HEADER = "X-CMC_PRO_API_KEY";
 
+//    @GET("cryptocurrency/listings/latest")
+//    Call<Listings> listings (@Query("convert") String convert);
+
     @GET("cryptocurrency/listings/latest")
-    Call<Listings> listings (@Query("convert") String convert);
+    Observable<Listings> listings (@Query("convert") String convert);
+
+
     class KeyInterceptor implements Interceptor{
 
         @NotNull

@@ -17,9 +17,8 @@ public class MainViewModel extends ViewModel {
 
     @Inject
     MainViewModel() {
-        selectedId.postValue(R.id.wallets);
+        selectedId.postValue(R.id.exchange_rates);
     }
-
 
     public void submitTitle(String title) {
         this.title.postValue(title);
@@ -27,7 +26,7 @@ public class MainViewModel extends ViewModel {
 
     public void submitSelectedId(int selectedId) {
 
-        if (!Objects.equals(selectedId, this.selectedId.getValue())){
+        if (!Objects.equals(selectedId, this.selectedId.getValue())) {
 
             this.selectedId.postValue(selectedId);
         }
@@ -41,5 +40,4 @@ public class MainViewModel extends ViewModel {
     public LiveData<Integer> selectedId() {
         return selectedId;
     }
-
 }
