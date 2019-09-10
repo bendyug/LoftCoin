@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.dbendyug.loftcoin.R;
 import com.dbendyug.loftcoin.converter.ConverterFragment;
 import com.dbendyug.loftcoin.exchangerates.ExchangeRatesFragment;
+import com.dbendyug.loftcoin.fcm.FcmChannel;
 import com.dbendyug.loftcoin.wallets.WalletsFragment;
 import com.dbendyug.loftcoin.util.Supplier;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,21 +20,31 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+import timber.log.Timber;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    @Inject MainNavigator mainNavigator;
+    @Inject
+    MainNavigator mainNavigator;
 
-    @Inject ViewModelProvider.Factory viewModelProviderFactory;
+    @Inject
+    ViewModelProvider.Factory viewModelProviderFactory;
+
+    @Inject
+    FcmChannel fcmChannel;
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         DaggerMainComponent.builder()
-        .activity(this)
-        .build()
-        .inject(this);
+                .activity(this)
+                .build()
+                .inject(this);
 
         setContentView(R.layout.activity_main);
 
@@ -55,5 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel.selectedId().observe(this, itemId -> bottomNavigationView.setSelectedItemId(itemId));
 
+        compositeDisposable.add(fcmChannel.token().subscribe(token -> Timber.d(token)));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 }

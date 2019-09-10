@@ -23,18 +23,9 @@ public class CurrenciesReposytoryImpl implements CurrenciesReposytory {
 
     private SharedPreferences sharedPreferences;
 
-//    private Subject<Currency> currencySubject;
-
-
     @Inject
     CurrenciesReposytoryImpl(Context context) {
         sharedPreferences = context.getSharedPreferences("currencies", Context.MODE_PRIVATE);
-
-//        currencySubject = BehaviorSubject.createDefault(getCurrentCurrency());
-//
-//        sharedPreferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
-//            currencySubject.onNext(getCurrentCurrency());
-//        });
     }
 
     @Override
@@ -63,8 +54,4 @@ public class CurrenciesReposytoryImpl implements CurrenciesReposytory {
             emitter.onNext(getCurrentCurrency());
         });
     }
-
-//    private SharedPreferences getSharedPreferences(){
-//        return context.getSharedPreferences("currencies", Context.MODE_PRIVATE);
-//    }
 }

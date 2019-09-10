@@ -1,19 +1,11 @@
 package com.dbendyug.loftcoin.util;
 
-import android.content.Context;
-import android.util.Pair;
-
-import androidx.core.os.ConfigurationCompat;
-import androidx.core.os.LocaleListCompat;
-
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.Locale;
-import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -43,7 +35,6 @@ public class PriceFormatterImpl implements PriceFormatter {
             setCurrencySymbol(numberFormat);
             return numberFormat.format(value);
         }
-
     }
 
     DecimalFormat setCurrencySymbol(NumberFormat numberFormat) {
@@ -62,7 +53,7 @@ public class PriceFormatterImpl implements PriceFormatter {
         DecimalFormatSymbols symbols = decimalFormat.getDecimalFormatSymbols();
         symbols.setCurrencySymbol(sign);
         decimalFormat.setDecimalFormatSymbols(symbols);
-        return numberFormat.format(value);
+        return numberFormat.format(value).replace('\u00A0', ' ').trim();
     }
 
 }

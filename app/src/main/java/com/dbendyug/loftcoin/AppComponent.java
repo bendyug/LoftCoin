@@ -7,6 +7,10 @@ import com.dbendyug.loftcoin.data.CoinsRepository;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
 import com.dbendyug.loftcoin.data.DataModule;
 import com.dbendyug.loftcoin.data.WalletsRepository;
+import com.dbendyug.loftcoin.db.LoftDb;
+import com.dbendyug.loftcoin.fcm.FcmChannel;
+import com.dbendyug.loftcoin.fcm.FcmModule;
+import com.dbendyug.loftcoin.fcm.FcmService;
 import com.dbendyug.loftcoin.rx.RxModule;
 import com.dbendyug.loftcoin.rx.RxScheduler;
 
@@ -22,7 +26,8 @@ import dagger.Component;
 @Component(modules = {
         AppModule.class,
         DataModule.class,
-        RxModule.class
+        RxModule.class,
+        FcmModule.class
 })
 public interface AppComponent {
 
@@ -39,6 +44,12 @@ public interface AppComponent {
     RxScheduler rxScheduler();
 
     WalletsRepository walletsRepository();
+
+    FcmChannel fcmChannel();
+
+    LoftDb loftDb();
+
+    void inject(FcmService fcmService);
 
     @Component.Factory
     interface Factory {

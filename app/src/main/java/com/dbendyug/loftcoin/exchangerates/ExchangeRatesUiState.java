@@ -18,15 +18,15 @@ public abstract class ExchangeRatesUiState {
 
     abstract boolean isRefreshing();
 
-    static ExchangeRatesUiState loading(){
+    static ExchangeRatesUiState loading() {
         return new AutoValue_ExchangeRatesUiState(Collections.emptyList(), null, true);
     }
 
-    static ExchangeRatesUiState error(Throwable error){
+    static ExchangeRatesUiState error(Throwable error) {
         return new AutoValue_ExchangeRatesUiState(Collections.emptyList(), error.getMessage(), false);
     }
 
-    static ExchangeRatesUiState success(List<CoinEntity> exchangeRates){
+    static ExchangeRatesUiState success(List<CoinEntity> exchangeRates) {
         return new AutoValue_ExchangeRatesUiState(exchangeRates, null, false);
     }
 }

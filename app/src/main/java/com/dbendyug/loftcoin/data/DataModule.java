@@ -39,7 +39,6 @@ public interface DataModule {
                 .baseUrl(BuildConfig.COIN_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .callbackExecutor(Executors.newFixedThreadPool(4))
                 .build();
         return retrofit.create(CoinApi.class);
     }

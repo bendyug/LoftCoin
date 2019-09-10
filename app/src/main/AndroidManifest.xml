@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dbendyug.loftcoin">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:name=".LoftApp"
         android:allowBackup="false"
@@ -23,8 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity"/>
-        <activity android:name=".welcome.WelcomeActivity"/>
+        <activity android:name=".main.MainActivity" />
+        <activity android:name=".welcome.WelcomeActivity" />
+
+        <service
+            android:name=".fcm.FcmService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

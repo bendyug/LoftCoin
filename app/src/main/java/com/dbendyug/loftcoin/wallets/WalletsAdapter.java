@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbendyug.loftcoin.R;
-import com.dbendyug.loftcoin.db.WalletEntity;
+import com.dbendyug.loftcoin.db.Wallet;
 import com.dbendyug.loftcoin.util.ImageURLFormatter;
 import com.dbendyug.loftcoin.util.PriceFormatter;
 import com.dbendyug.loftcoin.util.StableIdDiff;
@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
-public class WalletsAdapter extends ListAdapter<WalletEntity.View, WalletsAdapter.ViewHolder> {
+public class WalletsAdapter extends ListAdapter<Wallet, WalletsAdapter.ViewHolder> {
 
     private PriceFormatter priceFormatter;
     private ImageURLFormatter imageURLFormatter;
@@ -38,7 +38,7 @@ public class WalletsAdapter extends ListAdapter<WalletEntity.View, WalletsAdapte
 
     @Override
     public long getItemId(int position) {
-        return getItem(position).id();
+        return getItem(position).coinEntity().id();
     }
 
     @NonNull
@@ -49,10 +49,10 @@ public class WalletsAdapter extends ListAdapter<WalletEntity.View, WalletsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        WalletEntity.View wallet = getItem(position);
-        Picasso.get().load(imageURLFormatter.format(wallet.coinId())).into(holder.logo);
-        holder.symbol.setText(wallet.symbol());
-        holder.coinBalance.setText(priceFormatter.format(wallet.coinBalance(), wallet.symbol()));
+        Wallet wallet = getItem(position);
+        Picasso.get().load(imageURLFormatter.format(wallet.coinEntity().id())).into(holder.logo);
+        holder.symbol.setText(wallet.coinEntity().symbol());
+        holder.coinBalance.setText(priceFormatter.format(wallet.coinBalance(), wallet.coinEntity().symbol()));
         holder.currencyBalance.setText(priceFormatter.format(wallet.currencyBalance()));
     }
 

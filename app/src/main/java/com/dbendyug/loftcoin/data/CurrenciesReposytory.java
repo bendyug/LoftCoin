@@ -1,9 +1,6 @@
 package com.dbendyug.loftcoin.data;
 
-import android.util.Pair;
-
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.Observable;
 

@@ -23,7 +23,7 @@ class ViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         Provider<ViewModel> provider = providerMap.get(modelClass);
-        if (provider != null){
+        if (provider != null) {
             return (T) provider.get();
         }
         throw new IllegalArgumentException("No provider for " + modelClass);

@@ -22,9 +22,9 @@ class MainNavigator {
         this.fragments = fragments;
     }
 
-    void replaceFragment(int id){
+    void replaceFragment(int id) {
         Supplier<Fragment> factory = fragments.get(id);
-        if (factory != null){
+        if (factory != null) {
             fragmentActivity.getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_host, factory.get()).commit();
         }

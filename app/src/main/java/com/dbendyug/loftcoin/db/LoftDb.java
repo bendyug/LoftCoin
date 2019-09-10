@@ -4,18 +4,10 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 @Database(entities = {
-        CoinEntity.class,
-        WalletEntity.class,
-        TransactionEntity.class},
-        views = {
-                WalletEntity.View.class,
-                TransactionEntity.View.class
-        },
-        version = 6
+        CoinEntity.class},
+        version = 8
 )
 public abstract class LoftDb extends RoomDatabase {
 
     public abstract CoinDao coins();
-
-    public abstract WalletDao wallets();
 }

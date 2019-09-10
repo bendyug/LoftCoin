@@ -3,14 +3,14 @@ package com.dbendyug.loftcoin.wallets;
 import androidx.lifecycle.ViewModel;
 
 import com.dbendyug.loftcoin.data.WalletsRepository;
-import com.dbendyug.loftcoin.db.CoinEntity;
-import com.dbendyug.loftcoin.db.TransactionEntity;
-import com.dbendyug.loftcoin.db.WalletEntity;
+import com.dbendyug.loftcoin.db.Transaction;
+import com.dbendyug.loftcoin.db.Wallet;
 import com.dbendyug.loftcoin.rx.RxScheduler;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -18,13 +18,19 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 
 class WalletsViewModel extends ViewModel {
 
     private WalletsRepository walletsRepository;
     private RxScheduler rxScheduler;
     private Random random = new Random();
-    private BehaviorSubject<Long> walletId = BehaviorSubject.create();
+
+    private Observable<List<Wallet>> wallets;
+    private Subject<Integer> walletPosition;
+    private Observable<List<Transaction>> transactions;
+
+    private Date date;
 
     @Inject
     WalletsViewModel(WalletsRepository walletsRepository,
@@ -32,57 +38,73 @@ class WalletsViewModel extends ViewModel {
 
         this.walletsRepository = walletsRepository;
         this.rxScheduler = rxScheduler;
+
+        wallets = walletsRepository.wallets()
+                .replay(1)
+                .autoConnect()
+                .subscribeOn(rxScheduler.io());
+
+        walletPosition = BehaviorSubject.createDefault(0);
+
+        transactions = wallets.filter(wallets1 -> !wallets1.isEmpty())
+                .switchMap(wallets -> walletPosition
+                        .observeOn(rxScheduler.io())
+                        .map(position -> Math.min(position, wallets.size() - 1))
+                        .map(wallets::get)
+                )
+                .distinctUntilChanged(Wallet::id)
+                .switchMap(walletsRepository::transactions)
+                .subscribeOn(rxScheduler.io());
+
+        date = new Date(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(24 + random.nextInt(240)));
     }
 
-    Completable creatWallet() {
-        return walletsRepository.findCoin()
-                .map(this::createWallet)
-                .flatMap(wallet -> walletsRepository.saveWallet(wallet))
-                .map(this::createTransactions)
-                .flatMapCompletable(transactions -> walletsRepository.saveTransactions(transactions))
+    Completable createWallet() {
+        return wallets
+                .firstElement()
+                .flatMapSingle(wallets -> Observable
+                        .fromIterable(wallets)
+                        .map(wallet -> wallet.coinEntity().id())
+                        .toList()
+                )
+                .flatMap(walletsRepository::findCoin)
+                .map(coin -> Wallet.create(
+                        UUID.randomUUID().toString(),
+                        random.nextDouble() * (1 + random.nextInt(25)),
+                        coin
+                ))
+                .flatMapCompletable(walletsRepository::saveWallet)
                 .subscribeOn(rxScheduler.io())
                 .observeOn(rxScheduler.main());
     }
 
-    Observable<List<WalletEntity.View>> wallets() {
-        return walletsRepository.wallets().doOnNext(wallets -> {
-            Long value = walletId.getValue();
-            if (value == null && !wallets.isEmpty()) {
-                walletId.onNext(wallets.get(0).id());
-            }
-        })
+    Completable createTransaction() {
+        return wallets.filter(wallets1 -> !wallets1.isEmpty())
+                .switchMap(wallets -> walletPosition
+                        .map(position -> Math.min(position, wallets.size() - 1))
+                        .map(wallets::get)
+                )
+                .distinctUntilChanged(Wallet::id)
+                .map(wallet -> Transaction.create(UUID.randomUUID().toString(),
+                        random.nextDouble() * (random.nextInt(30) - 15),
+                        date,
+                        wallet)
+                )
+                .flatMapCompletable(walletsRepository::saveTransaction)
                 .subscribeOn(rxScheduler.io())
                 .observeOn(rxScheduler.main());
     }
 
-    Observable<List<TransactionEntity.View>> transactions() {
-        return walletId.distinctUntilChanged()
-                .flatMap(walletId -> walletsRepository.transactions(walletId))
-                .subscribeOn(rxScheduler.io())
-                .observeOn(rxScheduler.main());
+
+    void submitWalletPosition(int position) {
+        walletPosition.onNext(position);
     }
 
-    void sumbitWalletId(long id) {
-        walletId.onNext(id);
+    Observable<List<Wallet>> wallets() {
+        return wallets.observeOn(rxScheduler.main());
     }
 
-    private WalletEntity createWallet(CoinEntity coinEntity) {
-        return WalletEntity.create(0,
-                random.nextDouble() * 100,
-                coinEntity.id());
+    Observable<List<Transaction>> transactions() {
+        return transactions.observeOn(rxScheduler.main());
     }
-
-    private List<TransactionEntity> createTransactions(long walletId) {
-        int numberOfTransactions = 1 + random.nextInt(15);
-        List<TransactionEntity> transactions = new ArrayList<>(numberOfTransactions);
-        long now = System.currentTimeMillis();
-        for (int i = 0; i < numberOfTransactions; i++) {
-            transactions.add(TransactionEntity.create(0,
-                    now - TimeUnit.HOURS.toMillis(24 + random.nextInt(240)),
-                    random.nextDouble() * (random.nextInt(20) - 10),
-                    walletId));
-        }
-        return transactions;
-    }
-
 }

@@ -2,11 +2,14 @@ package com.dbendyug.loftcoin.main;
 
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
 
+import com.dbendyug.loftcoin.AppComponent;
 import com.dbendyug.loftcoin.R;
 import com.dbendyug.loftcoin.converter.ConverterFragment;
 import com.dbendyug.loftcoin.exchangerates.ExchangeRatesFragment;
+import com.dbendyug.loftcoin.fcm.FcmChannel;
 import com.dbendyug.loftcoin.util.Supplier;
 import com.dbendyug.loftcoin.wallets.WalletsFragment;
 
@@ -22,7 +25,7 @@ interface MainModule {
 
     @Provides
     @Reusable
-    static SparseArrayCompat<Supplier<Fragment>> fragments(){
+    static SparseArrayCompat<Supplier<Fragment>> fragments() {
         SparseArrayCompat<Supplier<Fragment>> fragments = new SparseArrayCompat<>();
         fragments.put(R.id.wallets, () -> new WalletsFragment());
         fragments.put(R.id.exchange_rates, () -> new ExchangeRatesFragment());
@@ -35,8 +38,9 @@ interface MainModule {
     @ClassKey(MainViewModel.class)
     ViewModel mainViewModel(MainViewModel mainViewModel);
 
-//    @Provides
-//    static  ViewModel mainViewModel(){
-//        return new MainViewModel();
-//    }
+    @Provides
+    static FcmChannel fcmChannel(FragmentActivity fragmentActivity) {
+        return AppComponent.from(fragmentActivity.getApplicationContext())
+                .fcmChannel();
+    }
 }

@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers;
 class RxSchedulerImpl implements RxScheduler {
 
     @Inject
-    RxSchedulerImpl (){
+    RxSchedulerImpl() {
 
     }
 
