@@ -1,4 +1,4 @@
-package com.dbendyug.loftcoin.exchangerates;
+package com.dbendyug.loftcoin.converter;
 
 import androidx.fragment.app.Fragment;
 
@@ -9,15 +9,15 @@ import dagger.BindsInstance;
 import dagger.Component;
 
 @Component(modules = {
-        ExchangeRatesModule.class,
+        ConverterModule.class,
         ViewModelModule.class,
         UtilModule.class
 })
-interface ExchangeRatesComponent {
+public interface ConverterComponent {
 
-    void inject(ExchangeRatesFragment exchangeRatesFragment);
+    void inject(ConverterFragment converterFragment);
 
-    void inject(CurrencyDialog currencyDialog);
+    void inject(ConverterCoinsDialog converterCoinsDialog);
 
     @Component.Builder
     interface Builder {
@@ -25,6 +25,6 @@ interface ExchangeRatesComponent {
         @BindsInstance
         Builder fragment(Fragment fragment);
 
-        ExchangeRatesComponent build();
+        ConverterComponent build();
     }
 }

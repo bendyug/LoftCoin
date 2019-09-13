@@ -11,5 +11,5 @@ public interface ViewModelModule {
 
     @Binds
     @Reusable
-    ViewModelProvider.Factory viewModelFactory (ViewModelFactory viewModelFactory);
+    ViewModelProvider.Factory viewModelFactory(ViewModelFactory viewModelFactory);
 }

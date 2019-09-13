@@ -1,8 +1,8 @@
 package com.dbendyug.loftcoin.data;
 
 import com.dbendyug.loftcoin.db.CoinEntity;
-import com.dbendyug.loftcoin.db.TransactionEntity;
-import com.dbendyug.loftcoin.db.WalletEntity;
+import com.dbendyug.loftcoin.db.Transaction;
+import com.dbendyug.loftcoin.db.Wallet;
 
 import java.util.List;
 
@@ -12,13 +12,14 @@ import io.reactivex.Single;
 
 public interface WalletsRepository {
 
-    Observable<List<WalletEntity.View>> wallets();
+    Observable<List<Wallet>> wallets();
 
-    Observable<List<TransactionEntity.View>> transactions(long walletId);
+    Observable<List<Transaction>> transactions(Wallet wallet);
 
-    Single<CoinEntity> findCoin();
+    Single<CoinEntity> findCoin(List<Long> excludeId);
 
-    Single<Long> saveWallet(WalletEntity wallet);
+    Completable saveWallet(Wallet wallet);
 
-    Completable saveTransactions(List<TransactionEntity> transactions);
+    Completable saveTransaction(Transaction transaction);
+
 }

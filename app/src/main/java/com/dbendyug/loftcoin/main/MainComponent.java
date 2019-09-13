@@ -7,7 +7,7 @@ import com.dbendyug.loftcoin.viewmodel.ViewModelModule;
 import dagger.BindsInstance;
 import dagger.Component;
 
-@Component (modules = {
+@Component(modules = {
         MainModule.class,
         ViewModelModule.class
 })

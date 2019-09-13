@@ -23,7 +23,7 @@ public enum Currency {
         return currencySymbol;
     }
 
-    public String currencyName(){
+    public String currencyName() {
         return name();
     }
 }

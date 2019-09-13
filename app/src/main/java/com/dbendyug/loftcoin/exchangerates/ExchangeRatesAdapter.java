@@ -73,12 +73,12 @@ public class ExchangeRatesAdapter extends ListAdapter<CoinEntity, ExchangeRatesA
 
         Resources resources = holder.itemView.getResources();
         Resources.Theme theme = holder.itemView.getContext().getTheme();
-        if (coinEntity.change24h() > 0){
+        if (coinEntity.change24h() > 0) {
             holder.coinChange24h.setTextColor(ResourcesCompat.getColor(resources, R.color.price_change_positive, theme));
         } else {
             holder.coinChange24h.setTextColor(ResourcesCompat.getColor(resources, R.color.price_change_negative, theme));
         }
-        if (position % 2 == 0){
+        if (position % 2 == 0) {
             holder.itemView.setBackgroundResource(R.color.dark_two);
         } else {
             holder.itemView.setBackgroundResource(R.color.dark_three);
@@ -94,7 +94,6 @@ public class ExchangeRatesAdapter extends ListAdapter<CoinEntity, ExchangeRatesA
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         inflater = LayoutInflater.from(recyclerView.getContext());
     }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

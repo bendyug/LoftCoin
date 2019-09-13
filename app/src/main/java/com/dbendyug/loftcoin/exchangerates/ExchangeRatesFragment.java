@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dbendyug.loftcoin.R;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
+import com.dbendyug.loftcoin.db.LoftDb;
 import com.dbendyug.loftcoin.main.MainViewModel;
 
 import javax.inject.Inject;
@@ -37,9 +38,11 @@ public class ExchangeRatesFragment extends Fragment {
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    @Inject ViewModelProvider.Factory viewModelProviderFactory;
+    @Inject
+    ViewModelProvider.Factory viewModelProviderFactory;
 
-    @Inject ExchangeRatesAdapter exchangeRatesAdapter;
+    @Inject
+    ExchangeRatesAdapter exchangeRatesAdapter;
 
     @Inject
     CurrenciesReposytory currenciesReposytory;
@@ -81,21 +84,14 @@ public class ExchangeRatesFragment extends Fragment {
 
         disposable.add(exchangeRatesViewModel.uiState().subscribe(state -> {
             swipeRefreshLayout.setRefreshing(state.isRefreshing());
-            if (!state.exchangeRates().isEmpty()){
+            if (!state.exchangeRates().isEmpty()) {
                 exchangeRatesAdapter.submitList(state.exchangeRates());
             }
             String error = state.error();
-            if (error != null){
+            if (error != null) {
                 Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
             }
         }));
-
-//        exchangeRatesViewModel.isRefreshing().observe(this,
-//                isRefreshing -> swipeRefreshLayout.setRefreshing(isRefreshing));
-//        exchangeRatesViewModel.error().observe(this,
-//                error -> Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show());
-//        exchangeRatesViewModel.coinData().observe(this,
-//                coinEntities -> exchangeRatesAdapter.submitList(coinEntities));
     }
 
     @Override
@@ -113,9 +109,12 @@ public class ExchangeRatesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (R.id.menu_change_currency == item.getItemId()){
+        if (R.id.menu_change_currency == item.getItemId()) {
             CurrencyDialog dialog = new CurrencyDialog(currenciesReposytory);
             dialog.show(getChildFragmentManager(), CurrencyDialog.TAG);
+            return true;
+        } else if (R.id.menu_sort == item.getItemId()) {
+            exchangeRatesViewModel.sortItems();
             return true;
         }
         return super.onOptionsItemSelected(item);

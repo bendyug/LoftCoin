@@ -13,7 +13,7 @@ public class Change24hFormatterImpl implements Change24hFormatter {
     private Provider<Locale> locale;
 
     @Inject
-    Change24hFormatterImpl(Provider<Locale> locale){
+    Change24hFormatterImpl(Provider<Locale> locale) {
 
         this.locale = locale;
     }

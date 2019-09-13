@@ -24,15 +24,15 @@ public class Coin {
     }
 
     public String getSymbol() {
-        if (symbol == null){
+        if (symbol == null) {
             return null;
         } else {
-        return symbol;
+            return symbol;
         }
     }
 
     public String getName() {
-        if (name == null){
+        if (name == null) {
             return null;
         } else {
             return name;
@@ -40,7 +40,7 @@ public class Coin {
     }
 
     public Map<String, Quote> getQuote() {
-        if (quote == null){
+        if (quote == null) {
             return Collections.emptyMap();
         } else {
             return Collections.unmodifiableMap(quote);

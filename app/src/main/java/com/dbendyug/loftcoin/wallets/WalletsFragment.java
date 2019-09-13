@@ -78,7 +78,9 @@ public class WalletsFragment extends Fragment {
         wallets.swapAdapter(walletsAdapter, false);
 
         View walletCard = view.findViewById(R.id.wallet_card);
-        walletCard.setOnClickListener(view1 -> createWallet());
+        walletCard.setOnClickListener(view1 -> {
+            createWallet();
+        });
         compositeDisposable.add(walletsViewModel.wallets().subscribe(wallets -> {
             if (wallets.isEmpty()) {
                 walletCard.setVisibility(View.VISIBLE);
@@ -94,7 +96,7 @@ public class WalletsFragment extends Fragment {
                 if (RecyclerView.SCROLL_STATE_IDLE == newState) {
                     View snapView = snapHelper.findSnapView((recyclerView.getLayoutManager()));
                     if (snapView != null) {
-                        walletsViewModel.sumbitWalletId(recyclerView.getChildItemId(snapView));
+                        walletsViewModel.submitWalletPosition(recyclerView.getChildAdapterPosition(snapView));
                     }
                 }
             }
@@ -106,6 +108,8 @@ public class WalletsFragment extends Fragment {
         walletsTransactions.setHasFixedSize(true);
         walletsTransactions.swapAdapter(transactionAdapter, false);
         compositeDisposable.add(walletsViewModel.transactions().subscribe(list -> transactionAdapter.submitList(list)));
+
+        compositeDisposable.add(walletsViewModel.createTransaction().subscribe());
     }
 
     @Override
@@ -147,8 +151,9 @@ public class WalletsFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void createWallet() {
-        compositeDisposable.add(walletsViewModel.creatWallet().subscribe(
+        compositeDisposable.add(walletsViewModel.createWallet().subscribe(
                 () -> Toast.makeText(requireContext(), R.string.wallet_created, Toast.LENGTH_SHORT).show(),
                 error -> Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show()
         ));
@@ -157,6 +162,10 @@ public class WalletsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         compositeDisposable.clear();
+        snapHelper.attachToRecyclerView(null);
+        wallets.removeOnScrollListener(onWalletsScroll);
+        wallets.swapAdapter(null, false);
+        walletsTransactions.swapAdapter(null, false);
         super.onDestroyView();
     }
 }

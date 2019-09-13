@@ -25,5 +25,6 @@
     <string name="EUR" translatable="false">EUR</string>
     <string name="RUB" translatable="false">RUB</string>
     <string name="wallet_created">Wallet created successful</string>
+    <string name="converter_default_price" translatable="false">0.00</string>
 
 </resources>

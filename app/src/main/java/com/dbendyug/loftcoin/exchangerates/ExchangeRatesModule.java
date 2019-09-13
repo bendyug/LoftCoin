@@ -7,6 +7,7 @@ import com.dbendyug.loftcoin.AppComponent;
 import com.dbendyug.loftcoin.data.Coin;
 import com.dbendyug.loftcoin.data.CoinsRepository;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
+import com.dbendyug.loftcoin.db.LoftDb;
 import com.dbendyug.loftcoin.main.MainViewModel;
 import com.dbendyug.loftcoin.rx.RxScheduler;
 import com.dbendyug.loftcoin.util.Function;
@@ -38,6 +39,11 @@ interface ExchangeRatesModule {
     @Reusable
     static AppComponent appComponent(Fragment fragment) {
         return AppComponent.from(fragment.requireContext());
+    }
+
+    @Provides
+    static LoftDb loftDb(AppComponent appComponent) {
+        return appComponent.loftDb();
     }
 
     @Provides

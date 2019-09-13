@@ -12,7 +12,7 @@ import dagger.Reusable;
 public class ImageURLFormatterImpl implements ImageURLFormatter {
 
     @Inject
-    ImageURLFormatterImpl(){
+    ImageURLFormatterImpl() {
 
     }
 

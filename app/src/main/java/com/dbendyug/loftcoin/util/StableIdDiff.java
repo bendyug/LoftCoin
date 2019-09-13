@@ -8,7 +8,7 @@ import com.dbendyug.loftcoin.db.StableId;
 
 import java.util.Objects;
 
-public class StableIdDiff <T extends StableId> extends DiffUtil.ItemCallback<T> {
+public class StableIdDiff<Id, T extends StableId<Id>> extends DiffUtil.ItemCallback<T> {
     @Override
     public boolean areItemsTheSame(@NonNull T oldItem, @NonNull T newItem) {
         return oldItem.id() == newItem.id();

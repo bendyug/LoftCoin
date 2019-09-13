@@ -17,6 +17,17 @@
         <item name="bottomNavigationStyle">@style/Widget.AppTheme.BottomNav</item>
     </style>
 
+
+    <style name="AppTheme.BottomSheet.Dialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="bottomDialogColor">@color/dark_four</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.H1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.H2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.H3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.H4</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -77,7 +88,12 @@
     <declare-styleable name="AppTheme">
         <attr name="gradientButtonStart" format="reference" />
         <attr name="walletCardBackground" format="reference" />
-        <attr name="textAppearanceHeadline4WhiteBold" format="reference"/>
+        <attr name="textAppearanceHeadline4WhiteBold" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="AppTheme.Dialog">
+        <attr name="bottomDialogColor" format="reference" />
+    </declare-styleable>
+
 
 </resources>

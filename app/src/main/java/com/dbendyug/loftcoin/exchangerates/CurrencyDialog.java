@@ -77,6 +77,7 @@ public class CurrencyDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         dialog = new AppCompatDialog(requireContext());
+        dialog.setTitle(R.string.change_currency);
         return dialog;
     }
 

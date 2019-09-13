@@ -1,15 +1,11 @@
 package com.dbendyug.loftcoin.exchangerates;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dbendyug.loftcoin.data.CoinsRepository;
 import com.dbendyug.loftcoin.data.CurrenciesReposytory;
-import com.dbendyug.loftcoin.data.Currency;
-import com.dbendyug.loftcoin.db.CoinEntity;
+import com.dbendyug.loftcoin.db.LoftDb;
 import com.dbendyug.loftcoin.rx.RxScheduler;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,6 +25,9 @@ public class ExchangeRatesViewModel extends ViewModel {
     private CurrenciesReposytory currenciesReposytory;
 
     private RxScheduler scheduler;
+    private static String sort = "DESC";
+    @Inject
+    LoftDb loftDb;
 
     @Inject
     ExchangeRatesViewModel(CoinsRepository coinsRepository,
@@ -45,36 +44,29 @@ public class ExchangeRatesViewModel extends ViewModel {
                 .flatMap(refresh -> currenciesReposytory.currentCurrency())
                 .map(currency -> currency.name())
                 .flatMap(currencyName -> coinsRepository
-                    .listings(currencyName)
-                    .map(ExchangeRatesUiState::success)
-                    .onErrorReturn(ExchangeRatesUiState::error)
-                    .startWith(ExchangeRatesUiState.loading()))
+                        .listings(currencyName, sort)
+                        .map(ExchangeRatesUiState::success)
+                        .onErrorReturn(ExchangeRatesUiState::error)
+                        .startWith(ExchangeRatesUiState.loading()))
                 .subscribeOn(scheduler.io());
     }
-
-//    public void setCurrency(Currency currency) {
-//        currenciesReposytory.setCurrentCurrency(currency);
-//        refresh();
-//    }
 
     void refresh() {
         needToRefresh.onNext(true);
     }
 
-    Observable<ExchangeRatesUiState> uiState(){
-        return this.uiState.observeOn(scheduler.main());
+    void sortItems() {
+        if (sort.equals("DESC")) {
+            sort = "ASC";
+            refresh();
+        } else if (sort.equals("ASC")) {
+            sort = "DESC";
+            refresh();
+        }
     }
 
-//    LiveData<Boolean> isRefreshing() {
-//        return isRefreshing;
-//    }
-//
-//    LiveData<Throwable> error() {
-//        return error;
-//    }
-//
-//    LiveData<List<CoinEntity>> coinData() {
-//        return coinData;
-//    }
+    Observable<ExchangeRatesUiState> uiState() {
+        return this.uiState.observeOn(scheduler.main());
+    }
 
 }

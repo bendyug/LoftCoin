@@ -14,13 +14,13 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbendyug.loftcoin.R;
-import com.dbendyug.loftcoin.db.TransactionEntity;
+import com.dbendyug.loftcoin.db.Transaction;
 import com.dbendyug.loftcoin.util.PriceFormatter;
 import com.dbendyug.loftcoin.util.StableIdDiff;
 
 import javax.inject.Inject;
 
-public class TransactionAdapter extends ListAdapter<TransactionEntity.View, TransactionAdapter.ViewHolder> {
+public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdapter.ViewHolder> {
 
     private PriceFormatter priceFormatter;
     private LayoutInflater layoutInflater;
@@ -40,9 +40,9 @@ public class TransactionAdapter extends ListAdapter<TransactionEntity.View, Tran
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TransactionEntity.View transaction = getItem(position);
+        Transaction transaction = getItem(position);
 
-        holder.coinAmount.setText(priceFormatter.format(transaction.coinAmount(), transaction.symbol()));
+        holder.coinAmount.setText(priceFormatter.format(transaction.coinAmount(), transaction.wallet().coinEntity().symbol()));
         holder.currencyAmount.setText(priceFormatter.format(transaction.currencyAmount()));
 
         Resources resources = holder.itemView.getResources();
@@ -56,12 +56,12 @@ public class TransactionAdapter extends ListAdapter<TransactionEntity.View, Tran
             holder.arrow.setImageResource(R.drawable.ic_negative_transaction);
         }
 
-        holder.timestamp.setText(DateUtils.formatDateTime(holder.itemView.getContext(), transaction.timestamp(), DateUtils.FORMAT_SHOW_YEAR));
+        holder.timestamp.setText(DateUtils.formatDateTime(holder.itemView.getContext(), transaction.timestamp().getTime(), DateUtils.FORMAT_SHOW_YEAR));
     }
 
     @Override
     public long getItemId(int position) {
-        return getItem(position).id();
+        return getItem(position).wallet().coinEntity().id();
     }
 
     @Override
